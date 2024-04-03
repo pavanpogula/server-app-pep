@@ -10,9 +10,9 @@ COPY ./requirements.txt /code/requirements.txt
 # 
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-EXPOSE 3000
+EXPOSE 8000
 # 
 COPY ./app /code/app
 
 # 
-CMD uvicorn app.main:app --reload --host 0.0.0.0 --port 3000 
+CMD uvicorn app.main:app --reload --host 0.0.0.0 --port 8000 

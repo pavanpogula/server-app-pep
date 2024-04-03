@@ -23,7 +23,7 @@ Open Docker applictaion :
 
 ### To run the application locally in background :
 
-### `docker container run -d -p 3000:3000 --platform linux/amd64 pavanpogula/server-app-pep:latest`
+### `docker container run -d -p 8000:8000 --platform linux/amd64 pavanpogula/server-app-pep:latest`
 
 Application running  [http://localhost:8000](http://localhost:8000) 
 
