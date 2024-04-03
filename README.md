@@ -17,4 +17,23 @@ Open Docker applictaion :
 
 ### `docker pull pavanpogula/server-app-pep:latest`
 
-docker container run -d -p 3000:3000 --platform linux/amd64 pavanpogula/server-app-pep:b2977611c0c867133a0913badb6adf75fa42e6a7
+### You can verify the image has been downloaded by below command:  
+
+### `docker images pavanpogula/server-app-pep`
+
+### To run the application locally in background :
+
+### `docker container run -d -p 3000:3000 --platform linux/amd64 pavanpogula/server-app-pep:latest`
+
+Application running  [http://localhost:8000](http://localhost:8000) 
+
+
+### To View Running container :
+
+### `docker container ls`
+
+**Note down CONTAINER ID**
+
+### To Stop Container :
+
+### `docker stop <Continer-ID>`
