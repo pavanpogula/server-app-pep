@@ -1,0 +1,23 @@
+# env
+FROM python:3.9
+
+# working directory
+WORKDIR /app
+
+# dependencies
+COPY requirements.txt /app/
+
+# install dependecines
+RUN pip install --no-cache-dir -r requirements.txt
+
+# add files
+COPY ./app/
+
+# Make port 80 available to the world outside this container
+EXPOSE 80
+
+# Set the maintainer label
+LABEL maintainer="pavanpogula pavapogula28@gmail.com"
+
+# run commands
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
