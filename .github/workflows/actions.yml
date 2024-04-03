@@ -22,15 +22,15 @@ jobs:
     - name: Run Tests
       run: |
         python3 manage.py test
+           
+    - name: Login to docker
+      if: github.ref == 'refs/heads/main'
+      run: docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
 
     - name: Build the FastAPI Docker image
       if: github.ref == 'refs/heads/main'
       run: docker build -t ${{ secrets.DOCKER_LOGIN }}/server-app-pep:${{ github.sha }} .
       
-    - name: Login to docker
-      if: github.ref == 'refs/heads/main'
-      run: docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
-
     - name: Push the docker image
       if: github.ref == 'refs/heads/main'
       run: docker push '${{secrets.DOCKER_LOGIN}}'/fastapi-docker-workflow:'${{github.sha}}'
