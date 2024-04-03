@@ -2,6 +2,9 @@ name: Fast API docker build push
 on:
   push:
     branches: [ "main", "dev" ]
+  pull_request:
+    branches: [ "main", "dev" ]
+    
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,7 +24,7 @@ jobs:
         pip3 install -r requirements.txt
     - name: Run Tests
       run: |
-        python3 manage.py test
+        pytest -rA
 
     - name: Build the FastAPI Docker image
       if: github.ref == 'refs/heads/main'
