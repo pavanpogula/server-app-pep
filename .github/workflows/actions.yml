@@ -35,13 +35,8 @@ jobs:
     - name: Run Tests (with error handling)
       run: |
         python3 manage.py test || echo "Tests failed, but continuing..."
-
-    - name: Build the FastAPI Docker image
-      if: github.ref == 'refs/heads/main'
-      run: |
-        docker build -t ${{ secrets.DOCKER_LOGIN }}/server-app-pep:'${{ github.sha }}' .
-      env:
-        DOCKER_BUILDKIT: 1  # Optional: Enable Docker BuildKit for faster builds
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
 
     - name: Login to Docker (with error handling)
       if: github.ref == 'refs/heads/main'
@@ -49,8 +44,14 @@ jobs:
         echo "Logging into Docker..."
         docker login --username ${{ secrets.DOCKER_LOGIN }} --password ${{ secrets.DOCKER_PASSWORD }} || exit 1
 
-    - name: Push the docker image (with error handling)
-      if: github.ref == 'refs/heads/main'
+    - name: Build and push Docker image
       run: |
-        echo "Pushing Docker image..."
-        docker push ${{ secrets.DOCKER_LOGIN }}/server-app-pep:'${{ github.sha }}' || exit 1
+        docker buildx create --use
+        docker buildx build \
+          --file Dockerfile \
+          --tag ${{ secrets.DOCKER_LOGIN }}/server-app-pep:latest \
+          --push .
+
+    env:
+      DOCKER_CLI_EXPERIMENTAL: enabled
+      DOCKER_BUILDKIT: 1
