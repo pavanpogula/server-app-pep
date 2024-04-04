@@ -3,7 +3,11 @@ FROM python:3.9
 
 # 
 WORKDIR /code
+# Define build-time argument
+ARG AWS_SECRET_ACCESS_KEY=pavanreddy
 
+# Set environment variable with the build-time argument
+ENV AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
 # 
 COPY ./requirements.txt /code/requirements.txt
 
