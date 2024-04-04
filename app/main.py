@@ -14,7 +14,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": os.environ['AWS_SECRET_ACCESS_KEY']}
+    return {"Hello": "User"}
 
 
 # @app.get("/get_all")
