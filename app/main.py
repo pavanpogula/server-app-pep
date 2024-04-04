@@ -14,7 +14,7 @@ app = FastAPI()
 
 @app.get("/")
 def read_root():
-    return {"Hello": "UserNotYes"}
+    return {"Hello": "UserNotYesNo"}
 
 
 # @app.get("/get_all")
