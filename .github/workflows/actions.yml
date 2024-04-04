@@ -3,11 +3,12 @@ on:
   push:
     branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main", "dev" ]
+    branches: [  "dev" ]
     
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     strategy:
       fail-fast: false
       matrix:
@@ -26,14 +27,4 @@ jobs:
       run: |
         pytest -rA
 
-    - name: Build the FastAPI Docker image
-      if: github.ref == 'refs/heads/main'
-      run: docker build -t '${{secrets.DOCKER_USERNAME}}'/server-app-pep:latest . --platform linux/amd64
-      
-    - name: Login to docker
-      if: github.ref == 'refs/heads/main'
-      run: docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
-
-    - name: Push the docker image
-      if: github.ref == 'refs/heads/main'
-      run: docker push '${{secrets.DOCKER_USERNAME}}'/server-app-pep:latest
+    
